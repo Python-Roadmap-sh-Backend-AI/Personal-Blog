@@ -7,8 +7,13 @@
 
 <h1>My Blog</h1>
 
+<nav>
+    <a href="{{ url_for('home') }}">Home</a> |
+    <a href="{{ url_for('login') }}">Login</a>
+</nav>
+
 {% for article in articles %}
-    <a href="/article/{{ article }}">
+    <a href="{{ url_for('article', filename=article) }}">
         {{ article }}
     </a>
     <br>
