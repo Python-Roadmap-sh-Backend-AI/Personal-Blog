@@ -46,6 +46,28 @@ def dashboard():
     return render_template('dashboard.html', articles=articles)
 
 
+@app.route('/add', methods=['GET', 'POST'])
+def add_article():
+    if not session.get("admin"):
+        return redirect("/login")
+
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        date = request.form['date']
+
+        filename = f"{date}_{title.replace(' ', '_')}.md"
+
+        with open(f'articles/{filename}', 'w', encoding='utf-8') as file:
+            file.write(f"# {title}\n\n")
+            file.write(f"Date: {date}\n\n")
+            file.write(f"{content}\n")
+
+        return redirect("/dashboard")
+
+    return render_template('add_article.html')
+
+
 @app.route('/logout')
 def logout():
     session.pop("admin", None)
