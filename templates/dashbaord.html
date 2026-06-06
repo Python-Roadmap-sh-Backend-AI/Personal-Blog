@@ -1,0 +1,14 @@
+<h1>Admin Dashboard</h1>
+
+<a href="/add">Add New Article</a>
+
+<hr>
+
+{% for article in articles %}
+    <p>
+        {{ article }}
+
+        <a href="/edit/{{ article }}">Edit</a>
+        <a href="/delete/{{ article }}">Delete</a>
+    </p>
+{% endfor %}
