@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Article | Personal Blog{% endblock %}
+
+{% block content %}
+<article class="card article-body">
+	{{ content | safe }}
+</article>
+{% endblock %}

@@ -1,14 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Personal Blog{% endblock %}
+
+{% block content %}
 <h1>Admin Dashboard</h1>
+<p class="page-lead">Create, edit, and remove posts from one place.</p>
 
-<a href="/add">Add New Article</a>
+<div class="toolbar">
+    <a class="button primary" href="{{ url_for('add_article') }}">Add New Article</a>
+</div>
 
-<hr>
-
-{% for article in articles %}
-    <p>
-        {{ article }}
-
-        <a href="/edit/{{ article }}">Edit</a>
-        <a href="/delete/{{ article }}">Delete</a>
-    </p>
-{% endfor %}
+<div class="card-grid" style="margin-top: 20px;">
+    {% for article in articles %}
+        <div class="card">
+            <strong>{{ article }}</strong>
+            <div class="toolbar">
+                <a class="button secondary" href="{{ url_for('edit_article', filename=article) }}">Edit</a>
+                <a class="button secondary" href="{{ url_for('delete_article', filename=article) }}">Delete</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="card">
+            <h2>No articles yet</h2>
+            <p class="page-lead">Add your first article to get started.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,11 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Article | Personal Blog{% endblock %}
+
+{% block content %}
 <h1>Edit Article</h1>
+<p class="page-lead">Update the article content and save your changes.</p>
 
-<form method="POST">
+<form method="POST" class="form-grid">
+    <div class="field">
+        <label for="content">Content</label>
+        <textarea id="content" name="content" required>{{ content }}</textarea>
+    </div>
 
-    <textarea name="content">{{ content }}</textarea>
-
-    <br><br>
-
-    <button type="submit">Update</button>
-
+    <button type="submit">Update Article</button>
 </form>
+{% endblock %}

@@ -1,6 +1,9 @@
 from flask import Flask, redirect, render_template, request, session
 import os
 
+import markdown
+from werkzeug.utils import secure_filename
+
 from utilis.article_manager import get_articles
 app = Flask(__name__) 
 app.secret_key = "mysecreykey"
@@ -20,7 +23,6 @@ def article(filename):
     with open(f'articles/{filename}','r', encoding='utf-8') as file:
         content = file.read()
 
-    import markdown
     html_content = markdown.markdown(content)
 
     return render_template('article.html', content=html_content)
@@ -57,7 +59,8 @@ def add_article():
         content = request.form['content']
         date = request.form['date']
 
-        filename = f"{date}_{title.replace(' ', '_')}.md"
+        safe_title = secure_filename(title).replace('-', '_') or 'article'
+        filename = f"{date}_{safe_title}.md"
 
         with open(f'articles/{filename}', 'w', encoding='utf-8') as file:
             file.write(f"# {title}\n\n")

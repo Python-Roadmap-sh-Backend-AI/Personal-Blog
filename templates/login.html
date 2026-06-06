@@ -1,11 +1,22 @@
-<form method="POST">
+{% extends "base.html" %}
 
-<input type="text" name="username">
+{% block title %}Login | Personal Blog{% endblock %}
 
-<input type="password" name="password">
+{% block content %}
+<h1>Login</h1>
+<p class="page-lead">Sign in to access the admin dashboard.</p>
 
-<button>
-Login
-</button>
+<form method="POST" class="form-grid">
+	<div class="field">
+		<label for="username">Username</label>
+		<input id="username" type="text" name="username" placeholder="Enter username" required>
+	</div>
 
+	<div class="field">
+		<label for="password">Password</label>
+		<input id="password" type="password" name="password" placeholder="Enter password" required>
+	</div>
+
+	<button type="submit">Login</button>
 </form>
+{% endblock %}

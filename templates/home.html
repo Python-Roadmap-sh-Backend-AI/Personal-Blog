@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Blog</title>
-</head>
-<body>
+{% extends "base.html" %}
 
+{% block title %}Home | Personal Blog{% endblock %}
+
+{% block content %}
 <h1>My Blog</h1>
+<p class="page-lead">Read recent posts or sign in to manage articles from the dashboard.</p>
 
-<nav>
-    <a href="{{ url_for('home') }}">Home</a> |
-    <a href="{{ url_for('login') }}">Login</a>
-</nav>
-
-{% for article in articles %}
-    <a href="{{ url_for('article', filename=article) }}">
-        {{ article }}
-    </a>
-    <br>
-{% endfor %}
-
-</body>
-</html>
+<div class="card-grid">
+    {% for article in articles %}
+        <article class="card">
+            <a class="article-link" href="{{ url_for('article', filename=article) }}">
+                <h2>{{ article }}</h2>
+            </a>
+            <p class="meta">Click to open the full article.</p>
+        </article>
+    {% else %}
+        <div class="card">
+            <h2>No articles yet</h2>
+            <p class="page-lead">Use the dashboard to add your first post.</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
