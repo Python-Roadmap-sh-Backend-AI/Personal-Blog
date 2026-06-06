@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request
+
+from utilis.article_manager import get_articles
 app = Flask(__name__) 
 
 @app.route('/')
 def home():
-    return "<h1>Blog Home</h1>"
+    articles = get_articles()
+    return render_template('home.html', articles=articles)
 
 @app.route('/articles/<filename>')
 def article(filename):

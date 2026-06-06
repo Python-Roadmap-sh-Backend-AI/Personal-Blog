@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+</head>
+<body>
+
+<h1>My Blog</h1>
+
+{% for article in articles %}
+    <a href="/article/{{ article }}">
+        {{ article }}
+    </a>
+    <br>
+{% endfor %}
+
+</body>
+</html>
