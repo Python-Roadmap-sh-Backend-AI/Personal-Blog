@@ -1,0 +1,14 @@
+body{
+    font-family: Arial;
+    max-width:900px;
+    margin:auto;
+    padding:20px;
+}
+
+a{
+    text-decoration:none;
+}
+
+button{
+    padding:10px;
+}
