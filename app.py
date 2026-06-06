@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, request, session
+import os
 
 from utilis.article_manager import get_articles
 app = Flask(__name__) 
@@ -66,6 +67,45 @@ def add_article():
         return redirect("/dashboard")
 
     return render_template('add_article.html')
+
+@app.route("/edit/<filename>", methods=["GET", "POST"])
+def edit_article(filename):
+
+    if not session.get("admin"):
+        return redirect("/login")
+
+    filepath = f"articles/{filename}"
+
+    if request.method == "POST":
+
+        content = request.form["content"]
+
+        with open(filepath, "w", encoding="utf-8") as file:
+            file.write(content)
+
+        return redirect("/dashboard")
+
+    with open(filepath, "r", encoding="utf-8") as file:
+        content = file.read()
+
+    return render_template(
+        "edit_article.html",
+        filename=filename,
+        content=content
+    )
+
+@app.route("/delete/<filename>")
+def delete_article(filename):
+
+    if not session.get("admin"):
+        return redirect("/login")
+
+    filepath = f"articles/{filename}"
+
+    if os.path.exists(filepath):
+        os.remove(filepath)
+
+    return redirect("/dashboard")
 
 
 @app.route('/logout')
